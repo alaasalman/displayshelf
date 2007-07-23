@@ -28,9 +28,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 	<mx:Binding source="sel.value" destination="shelf.selectedIndex" />
 	<mx:Binding destination="sel.value" source="shelf.selectedIndex" />
 	
-	<mx:Binding source="angle.value" destination="shelf.angle" />
-	<mx:Binding source="pop.value" destination="shelf.popout" />
-	
 	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )" resultFormat="xml"/>
 	
 	<mx:Script>
@@ -65,18 +62,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 		horizontalAlign="center" verticalAlign="middle" >	 	
 
 		<mx:HBox>
-			<mx:Label text="Angle:" />
-			<mx:HSlider liveDragging="true" id="angle" minimum="5" value="35" maximum="90" snapInterval=".1" width="400" />
-		</mx:HBox>
-
-		<mx:HBox>
 			<mx:Label text="Selection:" />
 			<mx:HSlider liveDragging="true" id="sel" minimum="0" value="0" maximum="{shelf.dataProvider.length}" snapInterval="1" width="400" />
-		</mx:HBox>
-
-		<mx:HBox>
-			<mx:Label text="pop:" />
-			<mx:HSlider liveDragging="true" id="pop" minimum="0" value=".43" maximum="1" snapInterval=".01" width="400" />
 		</mx:HBox>
 
 	</mx:VBox>
