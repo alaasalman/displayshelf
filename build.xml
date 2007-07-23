@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <project name="DisplayShelf" basedir="." default="main">
+     <property name="FLEX_HOME" value="/home/john/dev/flex2"/>
+     <taskdef resource="flexTasks.tasks" classpath="${basedir}/flexTasks/lib/flexTasks.jar" />
+     <target name="main">
+         <mxmlc file="Final.mxml" use-network="true">
+             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+             <source-path path-element="${FLEX_HOME}/frameworks"/>
+         </mxmlc>
+     </target>  
+     
+ </project>

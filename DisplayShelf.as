@@ -52,6 +52,9 @@ package
 	import mx.managers.IFocusManagerComponent;
 	import mx.managers.IHistoryManagerClient;
 
+
+	import mx.effects.Fade;
+	import mx.utils.ObjectUtil;
 	// defining styles on the DisplayShelf.  By defining these styles here in metadata, developers will be allowed
 	// to specify values for these styles as attributes on the MXML tag.  Note that this component doesn't actually
 	// use these styles...instead, the TiltingTiles it contains use them. But this component assigns _itself_ as the 
@@ -707,6 +710,17 @@ package
 			*	in custom components.
 			*/
 			var index:Number = _itemIndexMap[e.currentTarget];
+			
+			if(index == selectedIndex)
+			{
+			/*	var f:Fade = new Fade(e.currentTarget);
+				trace(ObjectUtil.toString(_children[index]));
+				f.alphaFrom = 1.0;
+				f.alphaTo = 0.3;
+				f.play();*/
+			}
+			
+			
 			selectedIndex = index;
 		}
 		
