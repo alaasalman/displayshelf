@@ -31,7 +31,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 	<mx:Binding source="angle.value" destination="shelf.angle" />
 	<mx:Binding source="pop.value" destination="shelf.popout" />
 	
-	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )"/>
+	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )" resultFormat="xml"/>
 	
 	<mx:Script>
 		import mx.rpc.events.ResultEvent;
@@ -42,25 +42,24 @@ OTHER DEALINGS IN THE SOFTWARE.
 		public function onGetPhotos(event:ResultEvent):void
 		{
 			//trace(ObjectUtil.toString(event));
+			trace(event.result.toString());
 			
-			var imgCollection:ArrayCollection = event.result.Image;
-			trace(imgCollection.getItemAt(0).url);
-			var arc:ArrayCollection = new ArrayCollection();
+			var rcvXML:XML = new XML(event.result.toString());
 			
-			for each(var item in imgCollection)
-			{
-				arc.addItem(item.url);
-			} 
-			dataSet = arc.toArray();
+			trace(rcvXML);
+			
+			var xmlList:XMLList = new XMLList(rcvXML.Image);
+			
+            trace(xmlList);
+			shelf.dataProvider = xmlList;
+						
 		}
 	</mx:Script>
 
-	<mx:Array id="dataSet">					
-	</mx:Array>
 
 	
 	<local:DisplayShelf id="shelf"  horizontalCenter="0" verticalCenter="0"
-		borderThickness="10" borderColor="#FFFFFF" dataProvider="{dataSet}"  enableHistory="false" width="100%"/>
+		borderThickness="10" borderColor="#FFFFFF" enableHistory="false" width="100%"/>
 
 	<mx:VBox horizontalCenter="0" bottom="10"
 		horizontalAlign="center" verticalAlign="middle" >	 	
