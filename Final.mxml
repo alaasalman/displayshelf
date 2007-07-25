@@ -36,20 +36,21 @@ OTHER DEALINGS IN THE SOFTWARE.
 		import mx.utils.ObjectUtil;
 		import mx.collections.*;
 
+        var rcvXML:XML = null;
+
 		public function onGetPhotos(event:ResultEvent):void
 		{
 			//trace(ObjectUtil.toString(event));
 			trace(event.result.toString());
 			
-			var rcvXML:XML = new XML(event.result.toString());
+			rcvXML = new XML(event.result.toString());
 			
-			trace(rcvXML);
 			
 			var xmlList:XMLList = new XMLList(rcvXML.Image);
 			
-            trace(xmlList);
-			shelf.dataProvider = xmlList;
-						
+            shelf.dataProvider = xmlList;
+            
+            trace(ObjectUtil.toString(shelf.dataProvider.getItemAt(0)));
 		}
 	</mx:Script>
 
@@ -65,6 +66,9 @@ OTHER DEALINGS IN THE SOFTWARE.
 			<mx:Label text="Selection:" />
 			<mx:HSlider liveDragging="true" id="sel" minimum="0" value="0" maximum="{shelf.dataProvider.length - 1} " snapInterval="1" width="400" />
 		</mx:HBox>
-
+		
+		<mx:HBox>
+		    <mx:Label id="photoname" text="{shelf.dataProvider.getItemAt(sel.value).attribute('name')}"/>
+		</mx:HBox>
 	</mx:VBox>
 </mx:Application>
