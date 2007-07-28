@@ -28,49 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 	
 	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )" resultFormat="xml"/>
 	
-	<mx:Script>
-		import mx.rpc.events.ResultEvent;
-		import mx.rpc.http.HTTPService;
-		import mx.utils.ObjectUtil;
-		import mx.collections.*;
-		import mx.binding.utils.BindingUtils;
-		
-
-        var rcvXML:XML = null;
-
-		public function onGetPhotos(event:ResultEvent):void
-		{
-			//trace(ObjectUtil.toString(event));
-			
-			rcvXML = new XML(event.result.toString());
-			
-			
-			var xmlList:XMLList = new XMLList(rcvXML.Image);
-			
-            shelf.dataProvider = xmlList;
-            
-                        
-            scrollsel.maxScrollPosition = shelf.dataProvider.length - 1;
-            
-            
-            BindingUtils.bindProperty(shelf, "selectedIndex", sel, "value");
-            BindingUtils.bindProperty(sel, "value", shelf, "selectedIndex");
-            
-            BindingUtils.bindProperty(scrollsel, "scrollPosition", sel, "value");
-            BindingUtils.bindProperty(sel, "value", scrollsel, "scrollPosition");
-            
-		}
-		
-		import mx.events.ScrollEvent;
-    
-                
-            private function moveScroller(event:ScrollEvent):void
-            {
-                sel.value = event.currentTarget.scrollPosition;
-                trace(event.currentTarget.scrollPosition);
-            }
-            
-	</mx:Script>
+	<mx:Script source="displayshelfcompanion.as"/>
 
     <mx:Style>
         .myStyle {
@@ -82,21 +40,28 @@ OTHER DEALINGS IN THE SOFTWARE.
 	<local:DisplayShelf id="shelf"  horizontalCenter="0" verticalCenter="0"
 		borderThickness="10" borderColor="#FFFFFF" enableHistory="false" width="100%"/>
 	
-	
-	<mx:VBox horizontalCenter="0" bottom="10"
-		horizontalAlign="center" verticalAlign="middle" >	 	
-    <mx:Panel id="panel" title="Title Text" height="25%" width="25%" 
-            paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" alpha="0.4">
-
-        <mx:Label width="100%" color="blue"
-            text="{shelf.dataProvider.getItemAt(sel.value).attribute('name')}"/>
+	    <mx:Panel id="smallpanel" height="15%" width="25%" alpha="0">
+            <mx:Label id="shortdescl" height="100%" color="blue" truncateToFit="true"/>
         
-        <mx:HBox>
-            <mx:Button label="Read More" />
-            <mx:Button label="Visit Page" />
-        </mx:HBox>
+            <mx:HBox>
+                <mx:LinkButton id="readmorelb" label="Read More" click="onReadMoreClicked(event)" visible="false"/>
+                <mx:LinkButton id="visitpagelb" label="Visit Page" click="onVisitPageClicked(event)" visible="false"/>
+            </mx:HBox>
 
-    </mx:Panel>
+        </mx:Panel>
+        
+        <!--<mx:Panel id="bigpanel" height="45%" width="35%" alpha="0.4" title="{shelf.dataProvider.getItemAt(sel.value).attribute('title')}">
+            <mx:TextArea width="100%" editable="false" color="blue" text="{shelf.dataProvider.getItemAt(sel.value).attribute('longdesc')}"/>
+        
+            <mx:HBox>
+                <mx:LinkButton label="Go Back" click="onGoBackClicked(event)"/>
+                <mx:LinkButton label="Visit Page" click="onVisitPageClicked(event)"/>
+            </mx:HBox>
+
+        </mx:Panel>-->
+        
+	<mx:VBox horizontalCenter="0" bottom="10" horizontalAlign="center" verticalAlign="middle" >
+	        
 		<mx:HBox>
 			<mx:Label text="Selection:" />
 			<mx:HSlider liveDragging="true" id="sel" minimum="0" value="0" maximum="{shelf.dataProvider.length - 1} " snapInterval="1" width="400" />
