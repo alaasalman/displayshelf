@@ -839,6 +839,11 @@ package
 				_enableHistory = eh;
 			}
 		}
+		
+		public function getSelectedTile():UIComponent
+		{
+            return this._children[_selectedIndex];
+		}
 	}
 }
 	import flash.events.EventDispatcher;

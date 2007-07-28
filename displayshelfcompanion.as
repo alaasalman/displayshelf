@@ -21,15 +21,9 @@ public function onGetPhotos(event:ResultEvent):void
     shelf.dataProvider = xmlList;
             
                         
-    scrollsel.maxScrollPosition = shelf.dataProvider.length - 1;
-            
-            
     BindingUtils.bindProperty(shelf, "selectedIndex", sel, "value");
     BindingUtils.bindProperty(sel, "value", shelf, "selectedIndex");
             
-    BindingUtils.bindProperty(scrollsel, "scrollPosition", sel, "value");
-    BindingUtils.bindProperty(sel, "value", scrollsel, "scrollPosition");
-    
     
     oneSecondTimer = new Timer(1000, 1);
     oneSecondTimer.addEventListener("timer", onTimerExpire);
@@ -39,16 +33,13 @@ public function onGetPhotos(event:ResultEvent):void
 }
 private function testFunc(value:String): void
 {
-    trace("changed " + value);
     oneSecondTimer.reset();
     oneSecondTimer.start();
 }
 
 private function onTimerExpire(event:TimerEvent): void
 {
-    trace("timer expired");
-    
-    
+       
     if(shelf.dataProvider.getItemAt(sel.value).attribute('longdesc').toString() == "")
     {
         readmorelb.enabled = false;
@@ -74,21 +65,16 @@ private function onTimerExpire(event:TimerEvent): void
     smallpanel.title = shelf.dataProvider.getItemAt(sel.value).attribute('title');
     shortdescl.text = shelf.dataProvider.getItemAt(sel.value).attribute('shortdesc');
     
+    smallpanel.x = shelf.getSelectedTile().x;
+    smallpanel.y = shelf.getSelectedTile().y + shelf.getSelectedTile().height/2;
+    
+            
     var fadeEffect:Fade = new Fade(smallpanel);
     
     fadeEffect.alphaFrom = 0.0;
-    fadeEffect.alphaTo = 0.4;
+    fadeEffect.alphaTo = 0.6;
     fadeEffect.play();
     
-}
-
-import mx.events.ScrollEvent;
-    
-                
-private function moveScroller(event:ScrollEvent):void
-{
-    sel.value = event.currentTarget.scrollPosition;
-    trace(event.currentTarget.scrollPosition);
 }
 
 

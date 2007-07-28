@@ -66,9 +66,5 @@ OTHER DEALINGS IN THE SOFTWARE.
 			<mx:Label text="Selection:" />
 			<mx:HSlider liveDragging="true" id="sel" minimum="0" value="0" maximum="{shelf.dataProvider.length - 1} " snapInterval="1" width="400" />
 		</mx:HBox>
-		<mx:HBox>
-			<mx:Label text="Selection:{shelf.dataProvider.length - 1}" />
-			<mx:HScrollBar id="scrollsel" scroll="moveScroller(event)" styleName="myStyle" scrollPosition="0" maxScrollPosition="1" borderColor="333333" width="400" lineScrollSize="1" pageScrollSize="1" pageSize="1" />
-        </mx:HBox>
 	</mx:VBox>
 </mx:Application>
