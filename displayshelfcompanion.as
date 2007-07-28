@@ -4,10 +4,15 @@ import mx.utils.ObjectUtil;
 import mx.collections.*;
 import mx.binding.utils.BindingUtils;
 import mx.effects.*;
+import mx.events.*;
 
 
 var rcvXML:XML = null;
 var oneSecondTimer:Timer = null;
+var fadeEffect:Fade = null;
+
+var fadeEffectMax:Number = 1;
+var fadeEffectMin:Number = 0;
 
 public function onGetPhotos(event:ResultEvent):void
 {
@@ -28,18 +33,54 @@ public function onGetPhotos(event:ResultEvent):void
     oneSecondTimer = new Timer(1000, 1);
     oneSecondTimer.addEventListener("timer", onTimerExpire);
     
-    BindingUtils.bindSetter(testFunc, shelf, "selectedIndex");
+    BindingUtils.bindSetter(onShelfIndexChanged, shelf, "selectedIndex");
+    
+    fadeEffect = new Fade(smallpanel);
+    fadeEffect.addEventListener("effectEnd", onFadeEffectEnd);
             
 }
-private function testFunc(value:String): void
+private function onShelfIndexChanged(index:String): void
 {
     oneSecondTimer.reset();
     oneSecondTimer.start();
 }
 
+private function onFadeEffectEnd(event:EffectEvent): void
+{
+    if(smallpanel.alpha == 0)
+    {
+        setPanelData();
+        fadeEffect.alphaFrom = smallpanel.alpha;
+        fadeEffect.alphaTo = fadeEffectMax;
+        fadeEffect.play();
+    }
+}
+
+
 private function onTimerExpire(event:TimerEvent): void
 {
-       
+    
+           
+    trace(smallpanel.alpha);
+    /* first expore of panel, fade from 0 to 0.6 */
+    if(smallpanel.alpha == 0)
+    {
+        setPanelData();
+        fadeEffect.alphaFrom = smallpanel.alpha;
+        fadeEffect.alphaTo = fadeEffectMax;
+        fadeEffect.play();
+    }
+    else /* not first expore, so fade from 0.6 to 0 */
+    {
+        fadeEffect.alphaFrom = smallpanel.alpha;
+        fadeEffect.alphaTo = fadeEffectMin;
+        fadeEffect.play();
+    }
+    
+}
+
+private function setPanelData(): void
+{
     if(shelf.dataProvider.getItemAt(sel.value).attribute('longdesc').toString() == "")
     {
         readmorelb.enabled = false;
@@ -67,17 +108,7 @@ private function onTimerExpire(event:TimerEvent): void
     
     smallpanel.x = shelf.getSelectedTile().x;
     smallpanel.y = shelf.getSelectedTile().y + shelf.getSelectedTile().height/2;
-    
-            
-    var fadeEffect:Fade = new Fade(smallpanel);
-    
-    fadeEffect.alphaFrom = 0.0;
-    fadeEffect.alphaTo = 0.6;
-    fadeEffect.play();
-    
 }
-
-
 private function onReadMoreClicked(event:MouseEvent): void
 {
     
