@@ -25,8 +25,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 -->
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" height="100%" width="100%" layout="absolute" viewSourceURL="download/index.html" creationComplete="srv.send()">
 	
-	<mx:Binding source="sel.value" destination="shelf.selectedIndex" />
-	<mx:Binding destination="sel.value" source="shelf.selectedIndex" />
 	
 	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )" resultFormat="xml"/>
 	
@@ -35,13 +33,14 @@ OTHER DEALINGS IN THE SOFTWARE.
 		import mx.rpc.http.HTTPService;
 		import mx.utils.ObjectUtil;
 		import mx.collections.*;
+		import mx.binding.utils.BindingUtils;
+		
 
         var rcvXML:XML = null;
 
 		public function onGetPhotos(event:ResultEvent):void
 		{
 			//trace(ObjectUtil.toString(event));
-			trace(event.result.toString());
 			
 			rcvXML = new XML(event.result.toString());
 			
@@ -50,25 +49,61 @@ OTHER DEALINGS IN THE SOFTWARE.
 			
             shelf.dataProvider = xmlList;
             
-            trace(ObjectUtil.toString(shelf.dataProvider.getItemAt(0)));
+                        
+            scrollsel.maxScrollPosition = shelf.dataProvider.length - 1;
+            
+            
+            BindingUtils.bindProperty(shelf, "selectedIndex", sel, "value");
+            BindingUtils.bindProperty(sel, "value", shelf, "selectedIndex");
+            
+            BindingUtils.bindProperty(scrollsel, "scrollPosition", sel, "value");
+            BindingUtils.bindProperty(sel, "value", scrollsel, "scrollPosition");
+            
 		}
+		
+		import mx.events.ScrollEvent;
+    
+                
+            private function moveScroller(event:ScrollEvent):void
+            {
+                sel.value = event.currentTarget.scrollPosition;
+                trace(event.currentTarget.scrollPosition);
+            }
+            
 	</mx:Script>
 
+    <mx:Style>
+        .myStyle {
+            
+            }
+    </mx:Style>
 
-	
+
 	<local:DisplayShelf id="shelf"  horizontalCenter="0" verticalCenter="0"
 		borderThickness="10" borderColor="#FFFFFF" enableHistory="false" width="100%"/>
-
+	
+	
 	<mx:VBox horizontalCenter="0" bottom="10"
 		horizontalAlign="center" verticalAlign="middle" >	 	
+    <mx:Panel id="panel" title="Title Text" height="25%" width="25%" 
+            paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" alpha="0.4">
 
+        <mx:Label width="100%" color="blue"
+            text="{shelf.dataProvider.getItemAt(sel.value).attribute('name')}"/>
+        
+        <mx:HBox>
+            <mx:Button label="Read More" />
+            <mx:Button label="Visit Page" />
+        </mx:HBox>
+
+    </mx:Panel>
 		<mx:HBox>
 			<mx:Label text="Selection:" />
 			<mx:HSlider liveDragging="true" id="sel" minimum="0" value="0" maximum="{shelf.dataProvider.length - 1} " snapInterval="1" width="400" />
 		</mx:HBox>
-		
 		<mx:HBox>
-		    <mx:Label id="photoname" text="{shelf.dataProvider.getItemAt(sel.value).attribute('name')}"/>
-		</mx:HBox>
+			<mx:Label text="Selection:{shelf.dataProvider.length - 1}" />
+			<mx:HScrollBar id="scrollsel" scroll="moveScroller(event)" styleName="myStyle" scrollPosition="0" maxScrollPosition="1" borderColor="333333" width="400" lineScrollSize="1" pageScrollSize="1" pageSize="1" />
+        </mx:HBox>
 	</mx:VBox>
 </mx:Application>
