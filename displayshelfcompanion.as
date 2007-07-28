@@ -39,47 +39,42 @@ public function onGetPhotos(event:ResultEvent):void
     fadeEffect.addEventListener("effectEnd", onFadeEffectEnd);
             
 }
-private function onShelfIndexChanged(index:String): void
+private function onShelfIndexChanged(index:String):void
 {
     oneSecondTimer.reset();
     oneSecondTimer.start();
 }
 
-private function onFadeEffectEnd(event:EffectEvent): void
+private function onFadeEffectEnd(event:EffectEvent):void
 {
+    /* once we fade in, we have to fade out again for smooth transition. An exception is for first panel exposure */
     if(smallpanel.alpha == 0)
     {
-        setPanelData();
-        fadeEffect.alphaFrom = smallpanel.alpha;
-        fadeEffect.alphaTo = fadeEffectMax;
-        fadeEffect.play();
+        setSmallPanelData();
+        fadeOut(smallpanel);
     }
 }
 
 
-private function onTimerExpire(event:TimerEvent): void
+private function onTimerExpire(event:TimerEvent):void
 {
     
            
     trace(smallpanel.alpha);
-    /* first expore of panel, fade from 0 to 0.6 */
+    /* first expore of panel, fade out */
     if(smallpanel.alpha == 0)
     {
-        setPanelData();
-        fadeEffect.alphaFrom = smallpanel.alpha;
-        fadeEffect.alphaTo = fadeEffectMax;
-        fadeEffect.play();
+        setSmallPanelData();
+        fadeOut(smallpanel);
     }
-    else /* not first expore, so fade from 0.6 to 0 */
+    else /* not first expore, so fade in */
     {
-        fadeEffect.alphaFrom = smallpanel.alpha;
-        fadeEffect.alphaTo = fadeEffectMin;
-        fadeEffect.play();
+        fadeIn(smallpanel);
     }
     
 }
 
-private function setPanelData(): void
+private function setSmallPanelData():void
 {
     if(shelf.dataProvider.getItemAt(sel.value).attribute('longdesc').toString() == "")
     {
@@ -109,17 +104,69 @@ private function setPanelData(): void
     smallpanel.x = shelf.getSelectedTile().x;
     smallpanel.y = shelf.getSelectedTile().y + shelf.getSelectedTile().height/2;
 }
-private function onReadMoreClicked(event:MouseEvent): void
+
+private function setBigPanelData():void
+{
+    if(shelf.dataProvider.getItemAt(sel.value).attribute('linkto').toString() == "")
+    {
+        visitpagebiglb.enabled = false;
+        visitpagebiglb.visible = false;
+    }
+    else
+    {
+        visitpagebiglb.enabled = true;
+        visitpagebiglb.visible = true;
+    }
+    
+    gobacklb.visible = true;
+    
+    bigpanel.title = shelf.dataProvider.getItemAt(sel.value).attribute('title');
+    longdescta.text = shelf.dataProvider.getItemAt(sel.value).attribute('longdesc');
+    
+}
+private function onReadMoreClicked(event:MouseEvent):void
+{
+    fadeIn(smallpanel);
+    
+    bigpanel.visible = true;
+    gobacklb.visible = true;
+    longdescta.visible = true;
+    setBigPanelData();
+    fadeOut(bigpanel);
+    
+    shelf.enabled = false;
+    sel.enabled = false;
+}
+
+private function onVisitPageClicked(event:MouseEvent):void
 {
     
 }
 
-private function onVisitPageClicked(event:MouseEvent): void
+private function onGoBackClicked(event:MouseEvent):void
 {
+    fadeIn(bigpanel);
+    bigpanel.visible = false;
+    gobacklb.visible = false;
+    longdescta.visible = false;
+    
+    shelf.enabled = true;
+    sel.enabled = true;
+}
+
+private function fadeIn(target:Object):void
+{
+    fadeEffect.target = target;
+    fadeEffect.alphaFrom = target.alpha;
+    fadeEffect.alphaTo = fadeEffectMin;
+    fadeEffect.play();
     
 }
 
-private function onGoBackClicked(event:MouseEvent): void
+private function fadeOut(target:Object):void
 {
-    
+    fadeEffect.target = target;
+    fadeEffect.alphaFrom = target.alpha;
+    fadeEffect.alphaTo = fadeEffectMax;
+    fadeEffect.play();
 }

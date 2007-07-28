@@ -50,15 +50,15 @@ OTHER DEALINGS IN THE SOFTWARE.
 
         </mx:Panel>
         
-        <!--<mx:Panel id="bigpanel" height="45%" width="35%" alpha="0.4" title="{shelf.dataProvider.getItemAt(sel.value).attribute('title')}">
-            <mx:TextArea width="100%" editable="false" color="blue" text="{shelf.dataProvider.getItemAt(sel.value).attribute('longdesc')}"/>
+        <mx:Panel id="bigpanel" height="100%" width="100%" alpha="0" visible="false">
+            <mx:TextArea id="longdescta" width="100%" height="100%" editable="false" color="blue" visible="false"/>
         
             <mx:HBox>
-                <mx:LinkButton label="Go Back" click="onGoBackClicked(event)"/>
-                <mx:LinkButton label="Visit Page" click="onVisitPageClicked(event)"/>
+                <mx:LinkButton id="gobacklb" label="Go Back" click="onGoBackClicked(event)" visible="false"/>
+                <mx:LinkButton id="visitpagebiglb" label="Visit Page" click="onVisitPageClicked(event)" visible="false"/>
             </mx:HBox>
 
-        </mx:Panel>-->
+        </mx:Panel>
         
 	<mx:VBox horizontalCenter="0" bottom="10" horizontalAlign="center" verticalAlign="middle" >
 	        
