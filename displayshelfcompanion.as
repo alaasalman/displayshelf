@@ -170,6 +170,7 @@ private function onGoBackClicked(event:MouseEvent):void
     shelf.enabled = true;
     sel.enabled = true;
     sel.visible = true;
+    sellabel.visible = true;
 }
 
 private function fadeIn(target:Object):void
