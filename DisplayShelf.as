@@ -712,17 +712,7 @@ package
 			*/
 			var index:Number = _itemIndexMap[e.currentTarget];
 			
-			if(index == selectedIndex)
-			{
-			/*	var f:Fade = new Fade(e.currentTarget);
-				trace(ObjectUtil.toString(_children[index]));
-				f.alphaFrom = 1.0;
-				f.alphaTo = 0.3;
-				f.play();*/
-			}
-			
-			
-			selectedIndex = index;
+    		selectedIndex = index;
 		}
 		
 		/* 	this is our event handler for when our dataProvider changes.
