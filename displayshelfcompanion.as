@@ -5,6 +5,7 @@ import mx.collections.*;
 import mx.binding.utils.BindingUtils;
 import mx.effects.*;
 import mx.events.*;
+import flash.external.ExternalInterface;
 
 
 private var rcvXML:XML = null;
@@ -38,6 +39,8 @@ public function onGetPhotos(event:ResultEvent):void
     
     fadeEffect = new Fade(smallpanel);
     fadeEffect.addEventListener("effectEnd", onFadeEffectEnd);
+    
+    /* for first time display of swf, since no animation is fired */
     onShelfIndexChanged(null);
             
 }
@@ -54,6 +57,13 @@ private function onFadeEffectEnd(event:EffectEvent):void
     {
         setSmallPanelData();
         fadeOut(smallpanel);
+    }
+    
+    if(bigpanel.alpha == 0)
+    {
+        bigpanel.visible = false;
+        gobacklb.visible = false;
+        longdescta.visible = false;
     }
 }
 
@@ -134,27 +144,32 @@ private function onReadMoreClicked(event:MouseEvent):void
     bigpanel.visible = true;
     gobacklb.visible = true;
     longdescta.visible = true;
+    
     setBigPanelData();
     fadeOut(bigpanel);
     
     shelf.enabled = false;
     sel.enabled = false;
+    sel.visible = false;
+    sellabel.visible = false;
 }
 
 private function onVisitPageClicked(event:MouseEvent):void
 {
-    
+    if(ExternalInterface.available)
+    {
+        var urlToOpen:String = shelf.dataProvider.getItemAt(sel.value).attribute('linkto').toString();
+        ExternalInterface.call("window.open", urlToOpen);
+    }
 }
 
 private function onGoBackClicked(event:MouseEvent):void
 {
     fadeIn(bigpanel);
-    bigpanel.visible = false;
-    gobacklb.visible = false;
-    longdescta.visible = false;
-    
+
     shelf.enabled = true;
     sel.enabled = true;
+    sel.visible = true;
 }
 
 private function fadeIn(target:Object):void

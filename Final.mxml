@@ -63,7 +63,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 	<mx:VBox horizontalCenter="0" bottom="10" horizontalAlign="center" verticalAlign="middle" >
 	        
 		<mx:HBox>
-			<mx:Label text="Selection:" />
+			<mx:Label id="sellabel" text="Selection:" />
 			<mx:HSlider liveDragging="true" id="sel" minimum="0" value="0" maximum="{shelf.dataProvider.length - 1} " snapInterval="1" width="400" />
 		</mx:HBox>
 	</mx:VBox>
