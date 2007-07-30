@@ -7,12 +7,12 @@ import mx.effects.*;
 import mx.events.*;
 
 
-var rcvXML:XML = null;
-var oneSecondTimer:Timer = null;
-var fadeEffect:Fade = null;
+private var rcvXML:XML = null;
+private var oneSecondTimer:Timer = null;
+private var fadeEffect:Fade = null;
 
-var fadeEffectMax:Number = 1;
-var fadeEffectMin:Number = 0;
+private var fadeEffectMax:Number = 1;
+private var fadeEffectMin:Number = 0;
 
 public function onGetPhotos(event:ResultEvent):void
 {
@@ -33,13 +33,15 @@ public function onGetPhotos(event:ResultEvent):void
     oneSecondTimer = new Timer(1000, 1);
     oneSecondTimer.addEventListener("timer", onTimerExpire);
     
-    BindingUtils.bindSetter(onShelfIndexChanged, shelf, "selectedIndex");
+    shelf.addEventListener("animateeffectend", onShelfIndexChanged);
+    
     
     fadeEffect = new Fade(smallpanel);
     fadeEffect.addEventListener("effectEnd", onFadeEffectEnd);
+    onShelfIndexChanged(null);
             
 }
-private function onShelfIndexChanged(index:String):void
+private function onShelfIndexChanged(event:EffectEvent):void
 {
     oneSecondTimer.reset();
     oneSecondTimer.start();
@@ -101,6 +103,7 @@ private function setSmallPanelData():void
     smallpanel.title = shelf.dataProvider.getItemAt(sel.value).attribute('title');
     shortdescl.text = shelf.dataProvider.getItemAt(sel.value).attribute('shortdesc');
     
+        
     smallpanel.x = shelf.getSelectedTile().x;
     smallpanel.y = shelf.getSelectedTile().y + shelf.getSelectedTile().height/2;
 }

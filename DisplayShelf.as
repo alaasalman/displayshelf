@@ -53,8 +53,9 @@ package
 	import mx.managers.IHistoryManagerClient;
 
 
-	import mx.effects.Fade;
-	import mx.utils.ObjectUtil;
+	import mx.effects.*;
+	import mx.events.*;
+	
 	// defining styles on the DisplayShelf.  By defining these styles here in metadata, developers will be allowed
 	// to specify values for these styles as attributes on the MXML tag.  Note that this component doesn't actually
 	// use these styles...instead, the TiltingTiles it contains use them. But this component assigns _itself_ as the 
@@ -227,7 +228,7 @@ package
 			_safeSelectedIndex = Math.max(0,Math.min(_selectedIndex,_children.length-1));
 
 			// dispatch an event letting listeners know that 
-			dispatchEvent(new Event("change"));			
+			dispatchEvent(new Event("change"));
 			// when the selected index changes, we'll want to kick-start our animation.
 			startAnimation();
 			
@@ -788,6 +789,8 @@ package
 			_animation.property = "currentPosition";
 			_animation.toValue = _selectedIndex;
 			_animation.target = this;
+			_animation.addEventListener("effectEnd", onAnimationEnd);
+			
 			/* 	if we picked a fixed duration, we'd have to deal with the fact that sometimes we're only moving a single position,
 			*	and sometimes we may be moving a thousand.  Either short distances would be way too slow, or long distances would go 
 			*	way to fast and look bad.  Instead, we'll calculate a duration based on how far we're animating.  We also put in a minimum animation
@@ -843,6 +846,11 @@ package
 		public function getSelectedTile():UIComponent
 		{
             return this._children[_selectedIndex];
+		}
+		
+		public function onAnimationEnd(event:EffectEvent):void
+		{
+		    dispatchEvent(new EffectEvent("animateeffectend"));
 		}
 	}
 }
