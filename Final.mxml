@@ -23,7 +23,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" height="100%" width="100%" layout="absolute" viewSourceURL="download/index.html" creationComplete="srv.send()">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" height="100%" width="100%" layout="absolute" backgroundColor="white" creationComplete="srv.send()">
 	
 	
 	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )" resultFormat="xml"/>
@@ -59,7 +59,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 	<local:DisplayShelf id="shelf"  horizontalCenter="0" verticalCenter="0"
 		borderThickness="10" borderColor="#FFFFFF" enableHistory="false" width="100%"/>
 	
-	    <mx:Panel id="smallpanel" height="15%" width="25%" alpha="0" headerHeight="10">
+	    <mx:Panel id="smallpanel" height="15%" width="25%" alpha="0" headerHeight="10" backgroundColor="#B7BABC" borderColor="#B7BABC" color="white">
 	        <mx:Label id="smallpaneltitle"/>
             <mx:Label id="shortdescl" height="100%" color="blue" truncateToFit="true"/>
         
@@ -70,7 +70,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
         </mx:Panel>
         
-        <mx:Panel id="bigpanel" height="100%" width="100%" alpha="0" visible="false" headerHeight="10">
+        <mx:Panel id="bigpanel" height="100%" width="100%" alpha="0" visible="false" headerHeight="10" backgroundColor="#B7BABC" borderColor="#B7BABC" color="white">
             <mx:Label id="bigpaneltitle"/>
             <mx:TextArea id="longdescta" width="100%" height="100%" editable="false" color="blue" visible="false"/>
         
