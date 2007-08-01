@@ -28,7 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 	
 	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )" resultFormat="xml"/>
 	
-	<mx:Script source="displayshelfcompanion.as"/>
+	<mx:Script source="DisplayShelfCompanion.as"/>
 
     <mx:Style>
         .myStyle {
