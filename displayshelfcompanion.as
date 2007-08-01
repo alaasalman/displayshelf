@@ -72,12 +72,12 @@ private function onTimerExpire(event:TimerEvent):void
 {
     
            
-    trace(smallpanel.alpha);
     /* first expore of panel, fade out */
     if(smallpanel.alpha == 0)
     {
-        setSmallPanelData();
+        
         fadeOut(smallpanel);
+        setSmallPanelData();
     }
     else /* not first expore, so fade in */
     {
@@ -110,10 +110,9 @@ private function setSmallPanelData():void
         visitpagelb.visible = true;
     }
     
-    smallpanel.title = shelf.dataProvider.getItemAt(sel.value).attribute('title');
+    smallpaneltitle.text = shelf.dataProvider.getItemAt(sel.value).attribute('title');
     shortdescl.text = shelf.dataProvider.getItemAt(sel.value).attribute('shortdesc');
     
-        
     smallpanel.x = shelf.getSelectedTile().x;
     smallpanel.y = shelf.getSelectedTile().y + shelf.getSelectedTile().height/2;
 }
@@ -133,7 +132,7 @@ private function setBigPanelData():void
     
     gobacklb.visible = true;
     
-    bigpanel.title = shelf.dataProvider.getItemAt(sel.value).attribute('title');
+    bigpaneltitle.text = shelf.dataProvider.getItemAt(sel.value).attribute('title');
     longdescta.text = shelf.dataProvider.getItemAt(sel.value).attribute('longdesc');
     
 }
