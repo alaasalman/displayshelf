@@ -59,12 +59,12 @@ OTHER DEALINGS IN THE SOFTWARE.
 	<local:DisplayShelf id="shelf"  horizontalCenter="0" verticalCenter="0"
 		borderThickness="10" borderColor="#FFFFFF" enableHistory="false" width="100%"/>
 	
-	    <mx:Panel id="smallpanel" height="15%" width="25%" alpha="0" headerHeight="10" backgroundColor="#B7BABC" borderColor="#B7BABC" color="white">
+	    <mx:Panel id="smallpanel" height="15%" width="25%" alpha="0" headerHeight="10" borderColor="#B7BABC" ><!--backgroundColor="#B7BABC" color="white"-->
 	        <mx:Label id="smallpaneltitle"/>
-            <mx:Label id="shortdescl" height="100%" color="blue" truncateToFit="true"/>
+            <mx:Label id="shortdescl" height="100%" maxWidth="{smallpanel.width - 20}" color="blue" truncateToFit="true"/>
         
-            <mx:HBox>
-                <mx:Label id="readmorelb" text="Read More" click="onReadMoreClicked(event)" visible="false" paddingRight="50"/>
+            <mx:HBox id="smallpanelhbox" width="100%" borderStyle="solid">
+                <mx:Label id="readmorelb" text="Read More" click="onReadMoreClicked(event)" visible="false"/>
                 <mx:Label id="visitpagelb" text="Visit Page" click="onVisitPageClicked(event)" visible="false"/>
             </mx:HBox>
 
@@ -74,7 +74,7 @@ OTHER DEALINGS IN THE SOFTWARE.
             <mx:Label id="bigpaneltitle"/>
             <mx:TextArea id="longdescta" width="100%" height="100%" editable="false" color="blue" visible="false"/>
         
-            <mx:HBox>
+            <mx:HBox id="bigpanelhbox" width="100%" borderStyle="solid">
                 <mx:Label id="gobacklb" text="Go Back" click="onGoBackClicked(event)" visible="false"/>
                 <mx:Label id="visitpagebiglb" text="Visit Page" click="onVisitPageClicked(event)" visible="false"/>
             </mx:HBox>

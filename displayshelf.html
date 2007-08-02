@@ -3,6 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Display Shelf</title>
+<script>
+function tofunc(paramstring)
+{
+    alert(paramstring);
+}
+</script>
 </head>
 
 <body scroll='no'>
@@ -12,11 +18,13 @@
 			<param name="movie" value="Final.swf" />
 			<param name="quality" value="high" />
 			<param name="bgcolor" value="#869ca7" />
+      <param name="flashVars" value="calljs=true"/>
 			<embed src="Final.swf" quality="high" bgcolor="#869ca7"
 				width="760" height="256" name="displayshelf" align="middle"
 				play="true"
 				loop="false"
 				quality="high"
+                flashVars="calljs=false"
 				type="application/x-shockwave-flash"
 				pluginspage="http://www.adobe.com/go/getflashplayer">
 			</embed>
