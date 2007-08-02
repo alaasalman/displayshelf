@@ -36,24 +36,33 @@ public function onGetPhotos(event:ResultEvent):void
     oneSecondTimer = new Timer(1000, 1);
     oneSecondTimer.addEventListener("timer", onTimerExpire);
     
-    shelf.addEventListener("animateeffectend", onShelfIndexChanged);
+    shelf.addEventListener("animateeffectend", onAnimationEnd);
     
     
     fadeEffect = new Fade(smallpanel);
     fadeEffect.addEventListener("effectEnd", onFadeEffectEnd);
     
-    /* for first time display of swf, since no animation is fired */
-    onShelfIndexChanged(null);
+       
+    shelf.addEventListener("change", onIndexChanged);
     
+    /* for first time display of swf, since no change is fired */
+    onAnimationEnd(null);
+}
+
+/* Index change event handler. */
+private function onIndexChanged(event:Event):void
+{
+    trace("Change");
+    fadeIn(smallpanel);
 }
 
 /* 
  * When the user selects a different image, we need to start the 
  * 1 second timer.
  */ 
-private function onShelfIndexChanged(event:EffectEvent):void
+private function onAnimationEnd(event:EffectEvent):void
 {
-     oneSecondTimer.reset();
+    oneSecondTimer.reset();
     oneSecondTimer.start();
 }
 
@@ -64,11 +73,7 @@ private function onShelfIndexChanged(event:EffectEvent):void
 private function onFadeEffectEnd(event:EffectEvent):void
 {
     /* once we fade in, we have to fade out again for smooth transition. An exception is for first panel exposure */
-    if(smallpanel.alpha == 0)
-    {
-        setSmallPanelData();
-        fadeOut(smallpanel);
-    }
+    
     
     if(bigpanel.alpha == 0)
     {
@@ -122,10 +127,7 @@ private function onTimerExpire(event:TimerEvent):void
  */ 
 private function setSmallPanelData():void
 {
-    if(shortdescl.text == shelf.dataProvider.getItemAt(sel.value).attribute('shortdesc'))
-    {
-        return;
-    }
+ 
     if(shelf.dataProvider.getItemAt(sel.value).attribute('longdesc').toString() == "")
     {
         readmorelb.enabled = false;
@@ -235,6 +237,7 @@ private function onGoBackClicked(event:MouseEvent):void
     /*We also have to hide it because for some strange reason, it shows up over the panel */
     sel.visible = true;
     sellabel.visible = true;
+    fadeOut(smallpanel);
 }
 
 /* Utility function to fadeIn an object. */
