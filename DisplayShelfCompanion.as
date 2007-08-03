@@ -52,7 +52,7 @@ public function onGetPhotos(event:ResultEvent):void
 /* Index change event handler. */
 private function onIndexChanged(event:Event):void
 {
-    trace("Change");
+    oneSecondTimer.reset();
     fadeIn(smallpanel);
 }
 
@@ -74,7 +74,6 @@ private function onFadeEffectEnd(event:EffectEvent):void
 {
     /* once we fade in, we have to fade out again for smooth transition. An exception is for first panel exposure */
     
-    
     if(bigpanel.alpha == 0)
     {
         bigpanel.visible = false;
@@ -86,7 +85,6 @@ private function onFadeEffectEnd(event:EffectEvent):void
 /*Timer expire event handler */
 private function onTimerExpire(event:TimerEvent):void
 {
-          
     /* first expose of panel, fade out */
     if(smallpanel.alpha == 0)
     {
