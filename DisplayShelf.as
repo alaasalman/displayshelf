@@ -1,4 +1,5 @@
 /*
+Portions Copyright (c) 2007 Alaa Salman
 Copyright (c) 2006 Adobe Systems Incorporated
 
 Permission is hereby granted, free of charge, to any person
