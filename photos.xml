@@ -1,0 +1,14 @@
+<Images>
+<Image title="1" shortdesc="short description of first image should this really be more than a line or so long ofcourse we need to truncate it" longdesc="This is a really Long Description which i will use for testing...i will use or i shall use...anyway, this should be long enough i guess i don't know why they use a long text string for testing" javacall="tofunc('1',2,'3', 19, '56')" linkto="http://www.google.com">http://192.168.0.101/img/photos400/photo01.jpg</Image>
+<Image title="2" shortdesc="Second Picture" longdesc="This is long description" linkto="www.google.com">http://192.168.0.101/img/photos400/photo02.jpg</Image>
+<Image title="3" shortdesc="Third Picture">http://192.168.0.101/img/photos400/photo03.jpg</Image>
+<Image title="4" shortdesc="Fourth Picture">http://192.168.0.101/img/photos400/photo04.jpg</Image>
+<Image title="5" shortdesc="">http://192.168.0.101/img/photos400/photo05.jpg</Image>
+<Image title="6" shortdesc="">http://192.168.0.101/img/photos400/photo06.jpg</Image>
+<Image title="7" shortdesc="">http://192.168.0.101/img/photos400/photo07.jpg</Image>
+<Image title="8" shortdesc="">http://192.168.0.101/img/photos400/photo08.jpg</Image>
+<Image title="9" shortdesc="">http://192.168.0.101/img/photos400/photo09.jpg</Image>
+<Image title="9" shortdesc="">http://192.168.0.101/img/photos400/photo10.jpg</Image>
+<Image title="9" shortdesc="">http://192.168.0.101/img/photos400/photo11.jpg</Image>
+<Image title="9" shortdesc="">http://192.168.0.101/img/photos400/photo12.jpg</Image>
+</Images>
