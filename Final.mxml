@@ -24,13 +24,21 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" height="100%" width="100%" layout="absolute" backgroundColor="white" creationComplete="srv.send()">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" height="100%" width="100%" layout="absolute" backgroundColor="white" applicationComplete="ApplicationStart()">
 	
 	
-	<mx:HTTPService id="srv" method="GET" url="http://192.168.0.101/photos.xml" result="onGetPhotos( event )" resultFormat="xml"/>
+	<mx:HTTPService id="srv" method="GET" result="onGetPhotos( event )" resultFormat="xml"/>
 	
 	<mx:Script source="DisplayShelfCompanion.as"/>
-
+    <mx:Script>
+    <![CDATA[
+        private function ApplicationStart(): void
+        {
+            srv.url = Application.application.parameters.photosurl;
+            srv.send();
+        }
+    ]]>
+    </mx:Script>
     <mx:Style>
         .myStyle {
             
