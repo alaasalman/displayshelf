@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <project name="DisplayShelf" basedir="." default="main">
-     <property name="FLEX_HOME" value="/home/john/dev/flex2"/>
+     <property name="FLEX_HOME" value="/home/john/dev/sdks/flex2"/>
      <taskdef resource="flexTasks.tasks" classpath="${basedir}/flexTasks/lib/flexTasks.jar" />
      <target name="main">
          <mxmlc file="Final.mxml" use-network="true">

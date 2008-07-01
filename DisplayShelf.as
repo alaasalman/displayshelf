@@ -834,7 +834,7 @@ package
 			}
 		}
 		
-		public function getSelectedTile():UIComponent
+		public function getSelectedTile():TiltingPane
 		{
             return this._children[_selectedIndex];
 		}
